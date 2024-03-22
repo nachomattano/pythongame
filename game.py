@@ -1,4 +1,28 @@
 import random
+
+def get_word_displayed(difficulty, secret_word, guessed_letters):
+    word = []
+    if difficulty == 1:
+        for letter in secret_word:
+            if letter in 'aeiou':
+                guessed_letters.append(letter)
+                word.append(letter)
+            else:
+                word.append("_")
+        return word
+    elif difficulty == 2:
+        guessed_letters.append(secret_word[0])
+        guessed_letters.append(secret_word[-1])
+        for letter in secret_word:
+            if letter in guessed_letters:
+                word.append(letter)
+            else:
+                word.append("_")
+        return word
+    elif difficulty == 3:
+        word = ["_" for _ in secret_word]
+        return word
+
 # Lista de palabras posibles
 words = ["python", "programación", "computadora", "código", "desarrollo",
 "inteligencia"]
@@ -17,7 +41,15 @@ guessed_letters = []
 print("¡Bienvenido al juego de adivinanzas!")
 print("Estoy pensando en una palabra. ¿Puedes adivinar cuál es?")
 
-word_displayed = "_" * len(secret_word)
+print("--------------------")
+print("Dificultades: ")
+print("1. Facil")
+print("2. Media")
+print("3. Dificil")
+difficulty = int(input("Ingrese una dificultad: "))
+
+word_displayed = "".join(get_word_displayed(difficulty, secret_word, guessed_letters))
+
 # Mostrarla palabra parcialmente adivinada
 print(f"Palabra: {word_displayed}")
 
